@@ -4,8 +4,10 @@ PImage moneyImage;
 Money[] moneyList;
 int moneyListIndex = 0;
 
-Button loveButton;
+int playerMoney = 100;
 
+Button loveButton;
+ArrayList<Merchandise> merchandiseList;
 
 
 void setup () {
@@ -21,10 +23,55 @@ void setup () {
   }
 
   loveButton = new Button(450, 450, 100);
+  merchandiseList = new ArrayList<Merchandise>();
 
 }
 
 
+void draw () {
+  background(20);
+
+  // temp timer
+  test--;
+  if (test < 0) {
+    test = 15;
+    dropMoney(3);
+    addMerchandise();
+  }
+
+  // draw the money
+  for (int i = 0; i < moneyList.length; i++) {
+    moneyList[i].draw();
+  }
+
+  // draw all the merchandises
+  for (int i = 0; i < merchandiseList.size(); i++) {
+    merchandiseList.get(i).draw();
+  }
+
+  // draw the button
+  loveButton.draw();
+}
+
+
+void mouseClicked () {
+  // draw all the merchandises
+  for (int i = merchandiseList.size() - 1; i >= 0; i--) {
+    boolean b = merchandiseList.get(i).checkClickedOn();
+    if (b) {
+      break;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+// drop amount of money
 void dropMoney (int amount) {
 
   for (int i = 0; i < amount; i++) {
@@ -32,24 +79,18 @@ void dropMoney (int amount) {
     moneyListIndex++;
     moneyListIndex = moneyListIndex == moneyList.length ? 0 : moneyListIndex;
   }
-  
 }
 
+// spawn a merchanise
+void addMerchandise () {
+  int x = (int)random(-100, -50);
+  int y = (int)random(width - 300, width - 100);
 
-void draw () {
-  background(20);
+  Merchandise m = new Merchandise(x, y, 100);
+  merchandiseList.add(m);
+}
 
-  test--;
-  if (test < 0) {
-    test = 15;
-    dropMoney(3);
-  }
-
-
-  // draw the money
-  for (int i = 0; i < moneyList.length; i++) {
-    moneyList[i].draw();
-  }
-
-  loveButton.draw();
+// offscreen merchanise, remove it
+void removeMerchandise (Merchandise m) {
+  merchandiseList.remove(m);
 }
