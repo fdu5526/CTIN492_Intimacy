@@ -1,21 +1,26 @@
-Money[] balls;
 int test = 10;
 
-
+PImage moneyImage;
 Money[] moneyList;
 int moneyListIndex = 0;
+
+Button loveButton;
 
 
 
 void setup () {
   size(900, 900);
   randomSeed(15251);
+
+  moneyImage = loadImage("money.png");
   
   // initialize a bunch of money
   moneyList = new Money[500];
   for (int i = 0; i < moneyList.length; i++) {
-    moneyList[i] = new Money(50);
+    moneyList[i] = new Money();
   }
+
+  loveButton = new Button(450, 450, 100);
 
 }
 
@@ -36,8 +41,8 @@ void draw () {
 
   test--;
   if (test < 0) {
-    test = 5;
-    dropMoney(5);
+    test = 15;
+    dropMoney(3);
   }
 
 
@@ -45,4 +50,6 @@ void draw () {
   for (int i = 0; i < moneyList.length; i++) {
     moneyList[i].draw();
   }
+
+  loveButton.draw();
 }
