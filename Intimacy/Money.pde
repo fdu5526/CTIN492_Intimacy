@@ -1,18 +1,22 @@
 class Money {
-  int x, y, diameter;
+  int x, y;
   float vx, vy, ax, ay;
   boolean dropped;
+  float theta;
+  float dTheta;
 
-  Money (int diameter) {
+  Money () {
     this.x = 0;
     this.y = 0;
-    this.diameter = diameter;
     
     vx = 0.0;
     vy = 0.0;
     ax = 0.0;
     ay = 0.0;
     dropped = false;
+    theta = random(-0.5, 0.5);
+    dTheta = random(0.01, 0.03);
+    dTheta = random(0f, 1f) > 0.5f ? dTheta : -dTheta;
   }
 
   // drop this object
@@ -33,19 +37,21 @@ class Money {
   void draw() {
     if (dropped) {
       // make the ball fall
-      if (y < height) {
+      if (y < height + 100) {
         x += vx;
         y += vy;
-
         vx += ax;
         vy += ay;
+        theta += dTheta;
       } else {
         dropped = false;
       }
 
-      stroke(200, 50 + diameter);
-      fill(150, 50 + diameter);
-      ellipse(x, y, diameter, diameter);
+      pushMatrix();
+        translate(x, y);
+        rotate(theta);
+        image(moneyImage, 0, 0);
+      popMatrix();
     }
   }
 }
