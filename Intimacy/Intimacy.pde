@@ -55,7 +55,10 @@ void draw () {
 
 
 void mouseClicked () {
-  // draw all the merchandises
+
+  loveButton.checkClickedOn();
+
+  // check click the merchandises
   for (int i = merchandiseList.size() - 1; i >= 0; i--) {
     boolean b = merchandiseList.get(i).checkClickedOn();
     if (b) {

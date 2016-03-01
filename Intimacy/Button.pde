@@ -7,6 +7,15 @@ class Button {
 		this.diameter = diameter;
 	}
 
+	boolean checkClickedOn () {
+		float dx = mouseX - x;
+		float dy = mouseY - y;
+		float r = diameter / 2f;
+		if (dx*dx + dy*dy <= r*r) {
+			return true;
+		}
+		return false;
+	}
 
 	void draw () {
 		noStroke();
