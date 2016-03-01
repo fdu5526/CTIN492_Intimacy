@@ -1,9 +1,10 @@
-class Leg{
+/*
+class Leg {
   float direction;
   float theta, leg_scale, dtheta;
-  Ball ball;
+  Money ball;
 
-  Leg(Ball ba)
+  Leg(Money ba)
   {
     ball = ba;
     leg_scale = random(0.8, 1.2);
@@ -42,8 +43,9 @@ class Leg{
 
     rotate(theta+percent*0.09*(direction*speed)+on_ground);
 
-    image(leg_img, 0, 0);
+    // draw here
+    //image(leg_img, 0, 0);
 
     popMatrix();
   }
-}
+}*/

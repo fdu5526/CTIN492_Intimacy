@@ -1,93 +1,48 @@
-Ball[] balls;
-Leg[] legs;
-int past_second = -1;
-PImage leg_img;
+Money[] balls;
+int test = 10;
+
+
+Money[] moneyList;
+int moneyListIndex = 0;
 
 
 
-
-void setup() {
-  size(600, 600);
+void setup () {
+  size(900, 900);
   randomSeed(15251);
-  initialize_balls();
-  leg_img = loadImage("leg.png");
-  initialize_legs();
-  set_to_current_time();
+  
+  // initialize a bunch of money
+  moneyList = new Money[500];
+  for (int i = 0; i < moneyList.length; i++) {
+    moneyList[i] = new Money(50);
+  }
+
+}
+
+
+void dropMoney (int amount) {
+
+  for (int i = 0; i < amount; i++) {
+    moneyList[moneyListIndex].drop();
+    moneyListIndex++;
+    moneyListIndex = moneyListIndex == moneyList.length ? 0 : moneyListIndex;
+  }
   
 }
 
-/**
- * initializes the clock to current time
- */
-void set_to_current_time()
-{
-  int minute_passed = 60*hour() + minute();
-  for(int i = 0; i < minute_passed; i++)
-  {
-    int r = (int)random(0,720);
-    Ball random_ball = balls[r];
-    
-    // select a ball that hasnt already fallen
-    while(random_ball.speed != 0.0)
-    {
-      r = (int)random(0,720);
-      random_ball = balls[r];
-    }
 
-    random_ball.drop();
-  }
-}
+void draw () {
+  background(20);
 
-
-/**
- * draw the gradient for the background
- */
-void draw_background(){
-
-  for(int i = 0; i < height; i++)
-  {
-    stroke(100-i/7, 50-i/12, 70-i/10);
-    line(0, i, width, i);
-  }
-}
-
-void draw() {
-  draw_background();
-
-  // resets the clock every 12 hours
-  if(hour() % 12 == 0 && minute() % 60 == 0 && millis() % 1000.0 < 100.0)
-  {
-    initialize_balls();
-    initialize_legs();
+  test--;
+  if (test < 0) {
+    test = 5;
+    dropMoney(5);
   }
 
-  // selects random ball to drop every minute
-  if(second() == 0 && past_second != second())
-  {
-    int r = (int)random(0,720);
-    Ball random_ball = balls[r];
-    
-    // select a ball that hasnt already fallen
-    while(random_ball.speed != 0.0)
-    {
-      r = (int)random(0,720);
-      random_ball = balls[r];
-    }
-    random_ball.drop();
-  }
-  past_second = second();
 
-  // draw the balls
-  for(int i = 0; i < balls.length; i++)
-  {
-    Ball b = balls[i];
-    b.draw_ball();
-  }
-
-  // draw the legs
-  for(int i = 0; i < legs.length; i++)
-  {
-    Leg l = legs[i];
-    l.draw_leg();
+  // draw the money
+  for (int i = 0; i < moneyList.length; i++) {
+    moneyList[i].draw();
   }
 }
