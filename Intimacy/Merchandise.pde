@@ -7,12 +7,13 @@ class Merchandise {
 	boolean bought;
 	int moneyValue;
 
-	Merchandise (int x, int y, int moneyValue) {
+	Merchandise (int x, int y, int moneyValue, boolean headRight) {
 		this.x = x;
 		this.y = y;
 		this.moneyValue = moneyValue;
 
 		this.vx = random(1, 4);
+		vx = headRight ? vx : -vx;
 		this.active = true;
 		this.bought = false;
 
