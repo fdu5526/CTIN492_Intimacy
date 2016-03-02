@@ -44,6 +44,7 @@ class Money {
         vy += ay;
         theta += dTheta;
       } else {
+        playerMoney++;
         dropped = false;
       }
 

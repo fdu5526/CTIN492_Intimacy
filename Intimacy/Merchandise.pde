@@ -12,7 +12,7 @@ class Merchandise {
 		this.y = y;
 		this.moneyValue = moneyValue;
 
-		this.vx = random(0.5, 4);
+		this.vx = random(1, 4);
 		this.active = true;
 		this.bought = false;
 
@@ -26,8 +26,6 @@ class Merchandise {
 			if (x <= mouseX && mouseX <= x + image.width &&
 				y <= mouseY && mouseY <= y + image.height &&
 				playerMoney >= moneyValue) {
-				bought = true;
-				playerMoney -= moneyValue;
 				return true;
 			}
 		}
@@ -36,17 +34,18 @@ class Merchandise {
 
 	void draw () {
 		if (active) {
-			if (x > width + 200) {
+			if (bought) { // bought, highlight it
+				fill(0,255,0);
+				rect(x - 5, y - 5, image.width + 10, image.height + 10);
+			} else if (x > width + 200) { // offscreen, kill it
 				active = false;
 				removeMerchandise(this);
 			}
-			if (bought) {
-				fill(0,255,0);
-				rect(x - 5, y - 5, image.width + 10, image.height + 10);
-			}
 
+			// draw the actual image
 			image(image, x, y);
 
+			// move to the right, display cost
 			if (!bought) {
 				x += vx;
 				textSize(80);

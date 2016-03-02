@@ -1,10 +1,10 @@
-int test = 10;
+int test = 0;
 
 PImage moneyImage;
 Money[] moneyList;
 int moneyListIndex = 0;
 
-int playerMoney = 100;
+int playerMoney = 150;
 
 Button loveButton;
 ArrayList<Merchandise> merchandiseList;
@@ -34,8 +34,7 @@ void draw () {
   // temp timer
   test--;
   if (test < 0) {
-    test = 15;
-    dropMoney(3);
+    test = 100;
     addMerchandise();
   }
 
@@ -51,17 +50,26 @@ void draw () {
 
   // draw the button
   loveButton.draw();
+
+  textSize(80);
+  fill(0, 255, 0);
+  text("$" + playerMoney, 50, 100);
 }
 
 
 void mouseClicked () {
 
-  loveButton.checkClickedOn();
+  boolean moneyButton = loveButton.checkClickedOn();
+  if (moneyButton) {
+    dropMoney(100);
+  }
 
   // check click the merchandises
   for (int i = merchandiseList.size() - 1; i >= 0; i--) {
     boolean b = merchandiseList.get(i).checkClickedOn();
     if (b) {
+      merchandiseList.get(i).bought = true;
+      playerMoney -= merchandiseList.get(i).moneyValue;
       break;
     }
   }
@@ -88,8 +96,9 @@ void dropMoney (int amount) {
 void addMerchandise () {
   int x = (int)random(-100, -50);
   int y = (int)random(width - 300, width - 100);
+  int v = (int)random(50, 200);
 
-  Merchandise m = new Merchandise(x, y, 100);
+  Merchandise m = new Merchandise(x, y, v);
   merchandiseList.add(m);
 }
 
