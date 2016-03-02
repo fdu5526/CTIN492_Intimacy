@@ -7,6 +7,8 @@ int moneyListIndex = 0;
 int playerMoney = 150;
 
 Button loveButton;
+
+PImage[] merchandiseImages;
 ArrayList<Merchandise> merchandiseList;
 
 
@@ -17,14 +19,19 @@ void setup () {
   moneyImage = loadImage("money.png");
   
   // initialize a bunch of money
-  moneyList = new Money[500];
+  moneyList = new Money[300];
   for (int i = 0; i < moneyList.length; i++) {
     moneyList[i] = new Money();
   }
 
+  // initialize other visual elements
   loveButton = new Button(450, 450, 100);
   merchandiseList = new ArrayList<Merchandise>();
 
+  merchandiseImages = new PImage[21];
+  for (int i = 0; i < merchandiseImages.length; i++) {
+    merchandiseImages[i] = loadImage("merchandise" + i + ".jpg");
+  }
 }
 
 

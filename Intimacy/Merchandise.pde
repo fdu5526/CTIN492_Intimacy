@@ -16,8 +16,8 @@ class Merchandise {
 		this.active = true;
 		this.bought = false;
 
-		int i = (int)random(1,1);
-		image = loadImage("merchandise" + i + ".jpg");
+		int i = (int)random(0,merchandiseImages.length);
+		image = merchandiseImages[i];
 	}
 
 	// clicked on
