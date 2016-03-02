@@ -42,7 +42,7 @@ class Merchandise {
 			if (bought) { // bought, highlight it
 				fill(0,255,0);
 				rect(x - 5, y - 5, image.width + 10, image.height + 10);
-			} else if (x > width + 200) { // offscreen, kill it
+			} else if (x > width + 500 || x < -500) { // offscreen, kill it
 				active = false;
 				removeMerchandise(this);
 			}
