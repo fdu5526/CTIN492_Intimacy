@@ -14,15 +14,21 @@ PImage[] merchandiseImages;
 ArrayList<Merchandise> merchandiseList;
 
 Minim minim;
-AudioPlayer dingSound, wrongSound;
+AudioPlayer[] moneySounds;
+AudioPlayer dingSound, wrongSound, blubSound;
 
 void setup () {
   frameRate(30);
   size(900, 900);
   randomSeed(15251);
   minim = new Minim (this);
+  blubSound = minim.loadFile("blub1.mp3");
   dingSound = minim.loadFile("ding.mp3");
   wrongSound = minim.loadFile("wrong.mp3");
+  moneySounds = new AudioPlayer[10];
+  for (int i = 0; i < moneySounds.length; i++) {
+    moneySounds[i] = minim.loadFile("cash.mp3");
+  }
 
   moneyImage = loadImage("money.png");
   
@@ -55,6 +61,7 @@ void draw () {
 
   // draw the button
   loveButton.draw();
+  tint(255,255,255);
 
   // draw the money
   for (int i = 0; i < moneyList.length; i++) {
@@ -73,13 +80,21 @@ void draw () {
 }
 
 
-void mouseClicked () {
+void mousePressed () {
+  loveButton.pressed();
+}
 
-  boolean moneyButton = loveButton.checkClickedOn();
+void mouseReleased () {
+  boolean moneyButton = loveButton.released();
   if (moneyButton) {
     int amount = (int)random(75, 125);
     dropMoney(amount);
   }
+}
+
+
+void mouseClicked () {
+
 
   // check click the merchandises
   boolean boughtSomething = false;
@@ -100,7 +115,11 @@ void mouseClicked () {
 
 
 
-
+void playMoneySound () {
+  AudioPlayer a = moneySounds[(int)random(0,moneySounds.length)];
+  a.cue(0);
+  a.play();
+}
 
 
 // drop amount of money
