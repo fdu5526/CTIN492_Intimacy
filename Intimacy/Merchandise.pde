@@ -24,9 +24,13 @@ class Merchandise {
 	boolean checkClickedOn () {
 		if (!bought) {
 			if (x <= mouseX && mouseX <= x + image.width &&
-				y <= mouseY && mouseY <= y + image.height &&
-				playerMoney >= moneyValue) {
-				return true;
+				y <= mouseY && mouseY <= y + image.height) {
+				if (playerMoney >= moneyValue) {
+					return true;
+				} else {
+					wrongSound.cue(0);
+      		wrongSound.play();
+				}
 			}
 		}
 		return false;

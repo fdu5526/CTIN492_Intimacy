@@ -5,18 +5,20 @@ class Money {
   float theta;
   float dTheta;
 
+  AudioPlayer moneySound;
+
   Money () {
     this.x = 0;
     this.y = 0;
     
-    vx = 0.0;
-    vy = 0.0;
-    ax = 0.0;
-    ay = 0.0;
+    vx = 0.0; vy = 0.0;
+    ax = 0.0; ay = 0.0;
     dropped = false;
     theta = random(-0.5, 0.5);
     dTheta = random(0.01, 0.03);
     dTheta = random(0f, 1f) > 0.5f ? dTheta : -dTheta;
+
+    moneySound = minim.loadFile("cash.mp3");
   }
 
   // drop this object
@@ -46,6 +48,8 @@ class Money {
       } else {
         playerMoney++;
         dropped = false;
+        moneySound.cue(0);
+        moneySound.play();
       }
 
       pushMatrix();

@@ -1,3 +1,5 @@
+import ddf.minim.*;
+
 int test = 0;
 
 PImage moneyImage;
@@ -11,10 +13,15 @@ Button loveButton;
 PImage[] merchandiseImages;
 ArrayList<Merchandise> merchandiseList;
 
+Minim minim;
+AudioPlayer dingSound, wrongSound;
 
 void setup () {
   size(900, 900);
   randomSeed(15251);
+  minim = new Minim (this);
+  dingSound = minim.loadFile("ding.mp3");
+  wrongSound = minim.loadFile("wrong.mp3");
 
   moneyImage = loadImage("money.png");
   
@@ -72,11 +79,15 @@ void mouseClicked () {
   }
 
   // check click the merchandises
+  boolean boughtSomething = false;
   for (int i = merchandiseList.size() - 1; i >= 0; i--) {
     boolean b = merchandiseList.get(i).checkClickedOn();
     if (b) {
+      boughtSomething = true;
       merchandiseList.get(i).bought = true;
       playerMoney -= merchandiseList.get(i).moneyValue;
+      dingSound.cue(0);
+      dingSound.play();
       break;
     }
   }
