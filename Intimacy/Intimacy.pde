@@ -53,6 +53,9 @@ void draw () {
     addMerchandise();
   }
 
+  // draw the button
+  loveButton.draw();
+
   // draw the money
   for (int i = 0; i < moneyList.length; i++) {
     moneyList[i].draw();
@@ -63,9 +66,7 @@ void draw () {
     merchandiseList.get(i).draw();
   }
 
-  // draw the button
-  loveButton.draw();
-
+  // draw money count
   textSize(80);
   fill(0, 255, 0);
   text("$" + playerMoney, 50, 100);

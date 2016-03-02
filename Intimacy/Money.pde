@@ -26,12 +26,11 @@ class Money {
     x = (int)random(width/4, 3*width/4);
     y = (int)random(-100, -50);
     
-    vx = random(-0.05f, 0.05f);
     vx = 0f;
-    vy = -1f;
+    vy = 3f;
 
-    ax = random(-0.005f, 0.012f);
-    ay = random(0.01f, 0.05f);
+    ax = random(-0.01f, 0.01f);
+    ay = random(0.05f, 0.1f);
 
     dropped = true;
   }
