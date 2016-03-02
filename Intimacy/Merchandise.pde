@@ -27,7 +27,7 @@ class Merchandise {
 				y <= mouseY && mouseY <= y + image.height) {
 				if (playerMoney >= moneyValue) {
 					return true;
-				} else {
+				} else { // not enough money to buy, play "wrong" sound
 					wrongSound.cue(0);
       		wrongSound.play();
 				}

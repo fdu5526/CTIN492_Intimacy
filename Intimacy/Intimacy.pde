@@ -6,7 +6,7 @@ PImage moneyImage;
 Money[] moneyList;
 int moneyListIndex = 0;
 
-int playerMoney = 150;
+int playerMoney = 500;
 
 Button loveButton;
 
@@ -17,6 +17,7 @@ Minim minim;
 AudioPlayer dingSound, wrongSound;
 
 void setup () {
+  frameRate(30);
   size(900, 900);
   randomSeed(15251);
   minim = new Minim (this);
@@ -75,7 +76,8 @@ void mouseClicked () {
 
   boolean moneyButton = loveButton.checkClickedOn();
   if (moneyButton) {
-    dropMoney(100);
+    int amount = (int)random(75, 125);
+    dropMoney(amount);
   }
 
   // check click the merchandises
