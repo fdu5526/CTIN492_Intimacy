@@ -114,7 +114,8 @@ void mouseClicked () {
       boughtSomething = true;
       merchandiseList.get(i).bought = true;
       playerMoney -= merchandiseList.get(i).moneyValue;
-      PlayMeowSound();
+      dingSound.cue(0);
+      dingSound.play();
       break;
     }
   }
@@ -151,7 +152,7 @@ void addMerchandise () {
   boolean headRight = random(0f,1f) > 0.5f;
   int x = (int)random(-100, -50);
   x = headRight ? x : width + 200 + x;
-  int y = (int)random(width - 300, width - 100);
+  int y = (int)random(width - 400, width - 200);
   int v = (int)random(50, 200);
 
   Merchandise m = new Merchandise(x, y, v, headRight);
