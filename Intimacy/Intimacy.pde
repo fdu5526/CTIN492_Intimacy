@@ -15,7 +15,8 @@ ArrayList<Merchandise> merchandiseList;
 
 Minim minim;
 AudioPlayer[] moneySounds;
-AudioPlayer dingSound, wrongSound, blubSound;
+AudioPlayer[] meowSounds;
+AudioPlayer dingSound, wrongSound, blubSound, music;
 
 void setup () {
   frameRate(30);
@@ -25,9 +26,18 @@ void setup () {
   blubSound = minim.loadFile("blub1.mp3");
   dingSound = minim.loadFile("ding.mp3");
   wrongSound = minim.loadFile("wrong.mp3");
+  music = minim.loadFile("music.mp3");
+  music.loop();
+  music.play();
+
   moneySounds = new AudioPlayer[10];
   for (int i = 0; i < moneySounds.length; i++) {
     moneySounds[i] = minim.loadFile("cash.mp3");
+  }
+
+  meowSounds = new AudioPlayer[5];
+  for (int i = 0; i < meowSounds.length; i++) {
+    meowSounds[i] = minim.loadFile("meow" + i + ".mp3");
   }
 
   moneyImage = loadImage("money.png");
@@ -104,8 +114,7 @@ void mouseClicked () {
       boughtSomething = true;
       merchandiseList.get(i).bought = true;
       playerMoney -= merchandiseList.get(i).moneyValue;
-      dingSound.cue(0);
-      dingSound.play();
+      PlayMeowSound();
       break;
     }
   }
@@ -121,6 +130,11 @@ void playMoneySound () {
   a.play();
 }
 
+void PlayMeowSound () {
+  AudioPlayer a = meowSounds[(int)random(0,meowSounds.length)];
+  a.cue(0);
+  a.play();
+}
 
 // drop amount of money
 void dropMoney (int amount) {
